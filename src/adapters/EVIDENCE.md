@@ -1,0 +1,19 @@
+# Adapter evidence and limits
+
+Checked on 2026-10-22. These adapters are independently implemented; no competitor source was copied.
+
+- Direct HTTP access to the Bilibili home page returned `risk-captcha-app`. The adapter explicitly preserves verification pages.
+- A read-only browser session displayed the Bilibili home page. Observed: `.bili-feed4-layout`, `.feed2`, `.recommended-container_floor-aside`, `.recommended-swipe`, `.feed-card > .bili-feed-card`, `.feed-roll-btn`, `.roll-btn`, `.nav-search-input`, `.search-panel.nav-search-panel > .trending`, `a.channel-icons__item`, and `a.left-fixed-channel` pointing at `//www.bilibili.com/v/popular/all`. Its native search placeholder contained a default trending word.
+- Installation-based Chrome/Edge smoke inspection observed `https://www.bilibili.com/` redirecting to the same-origin `/zh-Hans` home page. That page matched 37 `.bili-feed4-layout .bili-video-card` elements, 37 `.feed2 .bili-video-card` elements and one `.bili-header__banner`. The adapter now recognizes this exact observed home path, plus the same `zh-Hans` prefix on strictly matched video routes. Other locale prefixes remain unsupported. The initial smoke inspection revealed the routing gap; these DOM counts alone do not establish that hiding and restoring have passed subsequent live acceptance.
+- A read-only browser session displayed the Xiaohongshu discovery page. Observed: `.with-side-bar.main-content > .feeds-page#mfContainer`, `.channel-container > #channel-container`, `.feeds-container#exploreFeeds > section.note-item`, `#search-input.search-input`, and the independent sidebar `.channel-list`. The unauthenticated placeholder was `登录探索更多内容`; this guidance is deliberately preserved.
+- The public Xiaohongshu frontend CSS (`6.57.7`, `index.853440bd.css`) also confirmed `.note-detail-mask`, `#noteContainer`, `.feeds-page`, `.feeds-container`, `.channel-container`, `.query-note-list.hotspot`, and `.hotspot-tag`. CSS evidence alone does not establish current runtime parent/child relationships.
+- The Bilibili player recommendations, logged-in states, following routes and nested note overlays still require installation-based browser validation. Conservative compatibility selectors are kept separate from site-wide application containers. A selector failure leaves the original page visible and reports the affected module as unmatched.
+- An installed-extension reload regression reproduced stale hidden content after disabling a site. Content teardown now removes native page effects before touching extension API listeners, isolates listener-removal failures, and always clears its singleton. A new engine removes only residual `style#quietfeed-page-style` and `aside#quietfeed-search-guide[data-quietfeed-guide]` nodes, covering reloads where the old isolated-world singleton is unavailable. Unit tests exercise invalidated listener APIs and stale DOM; installation-based reload validation remains a separate check.
+
+Files under `tests/fixtures/` are small synthetic DOM structures, not captured pages. They contain no original posts, accounts, cookies, tokens, media, or site scripts. Automated fixture tests prove rule boundaries, restoration and timing behavior, not acceptance on every live-site variant.
+
+## v0.2 additional sites
+
+- [Baidu](../../docs/evidence/baidu.md): exact homepage hot-list children; search results remain unchanged.
+- [CSDN](../../docs/evidence/csdn.md): observed homepage content and named community/live/course side modules. Protected iframe content stays visible; blog hosts are outside the grant scope.
+- [Zhihu](../../docs/evidence/zhihu.md): explicitly experimental candidate selectors. Sign-in redirects and HTTP 403 prevented real recommendation validation; question content, follow routes and search are preservation targets, not proven signed-in acceptance.

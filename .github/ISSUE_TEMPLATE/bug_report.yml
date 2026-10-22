@@ -1,0 +1,68 @@
+name: 网页适配或功能问题
+description: 报告一个可以复现的问题，请先移除个人信息。
+title: '[Bug] '
+body:
+  - type: markdown
+    attributes:
+      value: 请勿提交账号、Cookie、令牌、私信或未经遮挡的截图。仅说明是否登录即可。
+  - type: input
+    id: version
+    attributes:
+      label: 静流版本
+      placeholder: 例如 0.2.0 / Git commit
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: 浏览器与操作系统
+      placeholder: 例如 Chrome 版本号 / Windows 11
+    validations:
+      required: true
+  - type: dropdown
+    id: site
+    attributes:
+      label: 涉及的网站
+      options:
+        - 哔哩哔哩
+        - 小红书
+        - 百度
+        - CSDN
+        - 知乎（试验）
+        - 扩展设置 / 弹出面板
+    validations:
+      required: true
+  - type: dropdown
+    id: login
+    attributes:
+      label: 是否登录网站
+      options:
+        - 未登录
+        - 已登录（无需提供账号）
+        - 不适用
+    validations:
+      required: true
+  - type: textarea
+    id: page
+    attributes:
+      label: 页面类型与启用模块
+      description: 例如 B 站视频页、隐藏相关推荐。URL 请去掉个人参数。
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: 复现步骤
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: 预期行为与实际行为
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: 脱敏截图或补充说明
+      description: 可选。请遮挡头像、昵称、搜索词和推荐内容等私人信息。

@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>百度搜索结果结构测试</title>
+  </head>
+  <body>
+    <!-- Safety fixture, not an assertion of the blocked live result-page DOM. -->
+    <form id="form" action="/s"><input id="kw" name="wd" value="TypeScript" /></form>
+    <main id="content_left">
+      <article class="result"><h2>用户主动搜索的结果</h2></article>
+    </main>
+    <aside id="content_right">结果页辅助内容，首版保留</aside>
+    <div id="s-hotsearch-wrapper">
+      <div class="s-hotsearch-title">路由切换后残留的首页模块</div>
+      <ul id="hotsearch-content-wrapper">
+        <li>不得在结果路由隐藏</li>
+      </ul>
+    </div>
+    <div role="dialog" aria-label="登录"><input aria-label="验证码" /></div>
+  </body>
+</html>

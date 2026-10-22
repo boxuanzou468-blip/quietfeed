@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>知乎受保护结构测试（合成）</title>
+  </head>
+  <body>
+    <div class="SearchBar"><input class="SearchBar-input" aria-label="搜索" /></div>
+    <main class="Topstory">
+      <div class="Topstory-recommend">
+        <article class="TopstoryItem ordinary">合成推荐</article>
+        <article class="TopstoryItem login-card">
+          <div class="SignFlow"><input aria-label="手机号码" /><button>登录</button></div>
+        </article>
+        <article class="TopstoryItem captcha-card">
+          <div class="Captcha"><input aria-label="验证码" /></div>
+        </article>
+      </div>
+      <div class="Topstory-follow">
+        <div class="Topstory-recommend">
+          <article class="TopstoryItem followed">主动关注内容</article>
+        </div>
+      </div>
+    </main>
+    <div class="SearchMain">
+      <div class="Topstory-recommend">
+        <article class="TopstoryItem search-result">主动搜索结果</article>
+      </div>
+    </div>
+    <div class="Modal-wrapper">
+      <div role="dialog" aria-modal="true"><p>合成登录弹层</p></div>
+    </div>
+  </body>
+</html>

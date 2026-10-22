@@ -1,0 +1,53 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npm run test:e2e
+      - run: npm run release
+      - name: Upload release packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: quietfeed-${{ github.sha }}
+          path: |
+            artifacts/*.zip
+            artifacts/SHA256SUMS.txt
+          if-no-files-found: error
+          retention-days: 14
+      - name: Upload browser test diagnostics
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: browser-test-diagnostics-${{ github.sha }}
+          path: |
+            playwright-report/
+            test-results/
+          if-no-files-found: ignore
+          retention-days: 7

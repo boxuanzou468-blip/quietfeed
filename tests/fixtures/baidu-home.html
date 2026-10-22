@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <title>百度首页结构测试</title>
+  </head>
+  <body>
+    <!-- Synthetic, anonymized structure based on the observed public homepage. -->
+    <main id="wrapper">
+      <div class="chat-input-wrapper chat-normal-wrapper">
+        <div class="chat-input-container">
+          <div id="chat-input-area">
+            <textarea
+              id="chat-textarea"
+              class="chat-input-textarea chat-input-scroll-style"
+              placeholder="合成默认热词"
+              aria-label="搜索"
+            ></textarea>
+          </div>
+        </div>
+      </div>
+      <ul class="bdsug">
+        <li>用户输入后的正常联想</li>
+      </ul>
+      <form
+        id="form"
+        class="fm virtual-form"
+        action="https://www.baidu.com/s"
+        style="display: none"
+      >
+        <input id="kw" name="wd" aria-label="搜索" />
+        <button type="submit">百度一下</button>
+      </form>
+      <div id="s-hotsearch-wrapper" class="s-hotsearch-wrapper">
+        <div class="s-hotsearch-title">百度热搜 <button>换一换</button></div>
+        <ul id="hotsearch-content-wrapper" class="s-hotsearch-content">
+          <li class="hotsearch-item"><a href="/s?wd=example">脱敏热榜条目</a></li>
+        </ul>
+      </div>
+      <a class="login-entry" href="https://passport.baidu.com/">登录</a>
+    </main>
+  </body>
+</html>
